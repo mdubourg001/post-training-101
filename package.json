@@ -1,0 +1,17 @@
+{
+  "name": "post-training-101",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.20.1",
+    "playwright-chromium": "^1.64.1"
+  },
+  "dependencies": {
+    "slidev-theme-eloc": "^1.1.0"
+  }
+}
