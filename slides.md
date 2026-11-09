@@ -5,9 +5,52 @@ info: Post-training 101 (Regex vibes), talk interne, novembre 2026
 mdc: true
 ---
 
+<div class="title-hero">
+<div class="title-hero-text">
+
 ## Apprendre à un petit LLM<br>à écrire des regex
 
 _Post-training 101_
+
+</div>
+<figure class="title-hero-fig">
+  <iframe src="/figures/llm-token-prediction.html" title="Un modèle de langage qui prédit le token suivant" loading="lazy"></iframe>
+</figure>
+</div>
+
+<style>
+.slidev-layout .title-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  align-self: stretch;
+  gap: 64px;
+  text-align: left;
+}
+.slidev-layout .title-hero-text h2 {
+  margin: 0;
+  font-size: 72px;
+  line-height: 1.15;
+}
+.slidev-layout .title-hero-text p {
+  margin: 0.6em 0 0;
+  color: var(--c-muted);
+}
+.slidev-layout .title-hero-fig {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 2px solid var(--c-line);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.35);
+}
+.slidev-layout .title-hero-fig iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+</style>
 
 ---
 
