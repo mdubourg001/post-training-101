@@ -14,7 +14,7 @@ _Post-training 101_
 
 </div>
 <figure class="title-hero-fig">
-  <iframe src="/figures/llm-token-prediction.html" title="Un modèle de langage qui prédit le token suivant" loading="lazy"></iframe>
+  <iframe src="figures/llm-token-prediction.html" title="Un modèle de langage qui prédit le token suivant" loading="lazy"></iframe>
 </figure>
 </div>
 
