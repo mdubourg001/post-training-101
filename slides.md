@@ -54,7 +54,7 @@ _Post-training 101_
 
 ---
 
-#### Pourquoi s'y intéresser maintenant ?
+#### Pourquoi ?
 
 <v-clicks>
 
@@ -91,17 +91,17 @@ _Post-training 101_
 ---
 
 <div class="schema flow">
-  <div class="node">
+  <div v-click="1" class="node">
     <span class="label">Entrée</span>
-    <p class="mt-4!">french phone numbers like 06 12 34 56 78 or 0612345678</p>
+    <p class="mt-4!">"french phone numbers like 06 12 34 56 78 or 0612345678"</p>
   </div>
-  <div class="arrow">→</div>
-  <div v-click class="node node--strong" style="flex: 0.7">
+  <div v-click="1" class="arrow">→</div>
+  <div class="node node--strong" style="flex: 0.7">
     <span class="label">Petit LLM</span>
-    <p class="mt-4!">Qwen3, 1,7 milliard de <Term k="weights">poids</Term></p>
+    <p class="mt-4!">Post-trained par moi</p>
   </div>
-  <div v-click class="arrow">→</div>
-  <div v-after class="node">
+  <div v-click="2" class="arrow">→</div>
+  <div v-click="2" class="node">
     <span class="label">Sortie</span>
     <p class="mt-4!"><code>/^0[1-9](?: ?\d{2}){4}$/</code></p>
   </div>
@@ -113,10 +113,10 @@ _Post-training 101_
 
 <v-clicks>
 
-- **Étroit** : une seule chose à savoir faire
-- **Court** : une ligne en sortie
-- **Vérifiable** : on exécute la regex, elle passe ou non
-- **Utile** : tout les devs en utilisent (et personne n'aime les écrire)
+- **Scope étroit** : une seule chose à savoir faire
+- **Sortie courte** : une ligne en sortie
+- **Sortie vérifiable** : on exécute la regex, elle passe ou non
+- **Utile** : tout les devs en utilisent (et aucun n'aime les écrire)
 
 </v-clicks>
 
@@ -126,15 +126,15 @@ _Post-training 101_
 
 <br />
 
-<p class="big accent">~3 %</p>
+<p class="big accent mb-10!">~3 %</p>
 
-<p class="big-sub">de bonnes réponses pour Qwen3-1.7B,<br>avant tout entraînement (pas ouf)</p>
+<p class="big-sub">de bonnes réponses<br />pour les différents modèles candidats,<br>avant tout entraînement <span v-click>(pas ouf)</span></p>
 
 ---
 
 <p class="part">02</p>
 
-## Les bases
+## Les bases du post-training
 
 ---
 
@@ -176,7 +176,7 @@ _Post-training 101_
 
 <p class="big-sub">de <Term k="weights">poids</Term> dans Qwen3-1.7B</p>
 
-<p v-click class="caption">Ni règles, ni code : tout le savoir du modèle est dans ces nombres.</p>
+<p v-click class="caption">Pas de code : tout le savoir du modèle est dans ces nombres.</p>
 
 ---
 
@@ -256,10 +256,10 @@ _Post-training 101_
 
 <v-clicks>
 
+- **La licence** : poids publiés et réutilisables ?
 - **La tâche** : étroite ou qui demande de raisonner ?
 - **L'exécution** : serveur, laptop, navigateur, mobile ?
-- **Le budget** : pour entraîner, puis pour chaque requête ?
-- **La licence** : poids publiés et réutilisables ?
+- **Le budget** : quel matériel pour entraîner ?
 
 </v-clicks>
 
@@ -319,7 +319,7 @@ _Post-training 101_
     { label: 'MiniCPM5-1B', before: 8.0, after: 21.3 },
     { label: 'Qwen3-0.6B', before: 2.8, after: 22.8 },
     { label: 'Qwen3.5-0.8B', before: 2.8, after: 26.0 },
-    { label: 'Qwen3-1.7B', before: null, after: 26.5, key: true },
+    { label: 'Qwen3-1.7B', before: 3.5, after: 26.5 },
   ]"
 />
 </div>
@@ -328,7 +328,7 @@ _Post-training 101_
 
 ---
 
-#### Tester petit, puis monter en taille
+#### Entrainer petit, puis monter en taille
 
 <v-clicks>
 
@@ -361,7 +361,7 @@ _Post-training 101_
 
 ---
 
-#### Un exemple, c'est une fixture de test
+#### Anatomie d'un exemple
 
 ```json
 {
@@ -373,11 +373,11 @@ _Post-training 101_
 ```
 
 <div class="schema mt-16">
-  <p v-click>On le garde seulement si…</p>
+  <p v-click>Fera partie du dataset si…</p>
   <div class="cells mt-6" style="grid-template-columns: repeat(3, 1fr)">
     <div v-click class="cell">
       <span class="label">01</span>
-      <p class="mt-2">la regex <b>compile</b></p>
+      <p class="mt-2">la regex <b>compile</b> dans Node</p>
     </div>
     <div v-click class="cell">
       <span class="label">02</span>
@@ -409,7 +409,7 @@ _Post-training 101_
   <div v-click class="arrow">→</div>
   <div v-after class="node">
     <h3>Garde-fous</h3>
-    <p>Exécutés dans Node&nbsp;: tests, regex mutées, doublons.</p>
+    <p>Exécution dans Node, tests, dédoublonnage...</p>
   </div>
   <div v-click class="arrow">→</div>
   <div v-after class="node node--surface">
@@ -439,41 +439,21 @@ _Post-training 101_
 
 ---
 
-#### Des entrées qui ressemblent à la vraie vie
-
-<v-clicks>
-
-> « Accept a positive whole number (ex: 4567): one or more digits… »
-
-> « six pairs of hexadecimal digits sparated by hyphens »
-
-> « css length w uint px em rem % vh vw no spaces decimal ok »
-
-> « email »
-
-</v-clicks>
-
-<style>
-.slidev-layout blockquote { margin: 12px 0; font-size: 34px; }
-</style>
-
----
-
-#### Trois jeux de données, trois usages
+#### Split du dataset
 
 <div class="schema cells mt-8" style="grid-template-columns: repeat(3, 1fr)">
   <div v-click class="cell">
-    <span class="label">Train, 8 810</span>
+    <span class="label accent">Train, 9348 cas</span>
     <h3 class="mt-3">Les exercices</h3>
     <p>Ce que le modèle étudie.</p>
   </div>
   <div v-click class="cell">
-    <span class="label"><Term k="heldout">Held-out</Term>, 471</span>
+    <span class="label accent"><Term k="heldout">Held-out</Term>, 471 cas</span>
     <h3 class="mt-3">Le partiel blanc</h3>
     <p>Jamais étudié, mais sorti du même moule.</p>
   </div>
   <div v-click class="cell">
-    <span class="label"><Term k="benchmark">Benchmarks</Term>, 1 030</span>
+    <span class="label accent"><Term k="benchmark">Benchmarks</Term>, 3</span>
     <h3 class="mt-3">L'examen</h3>
     <p>Écrits par d'autres : Claude, GPT, et 400 besoins réels de regex101.</p>
   </div>
@@ -503,7 +483,7 @@ _Post-training 101_
   <div v-click class="cell">
     <span class="label">Imiter</span>
     <h3 class="mt-3">« Fais comme ça. »</h3>
-    <p class="caption"><Term k="sft">SFT</Term>, <Term k="distillation">distillation</Term>, <Term k="rft">RFT</Term></p>
+    <p class="caption"><Term class="accent" k="sft">SFT</Term>, <Term k="distillation">distillation</Term>, <Term k="rft">RFT</Term></p>
   </div>
   <div v-click class="cell">
     <span class="label">Préférer</span>
@@ -536,7 +516,7 @@ _Post-training 101_
 
 <div class="schema mt-6">
   <div class="tokens" style="flex-wrap: nowrap; justify-content: center">
-    <span class="tok tok--muted">[user] french phone numbers…</span>
+    <span class="tok tok--answer">[user] french phone numbers…</span>
     <span class="tok tok--answer">/^</span><span class="tok tok--answer">0</span><span class="tok tok--next">?</span>
   </div>
   <p class="caption mt-3!" style="text-align: center">Le prompt et le début de la bonne réponse sont donnés : le modèle doit deviner la suite.</p>
@@ -563,7 +543,7 @@ _Post-training 101_
     <div v-click class="arrow">↻</div>
     <div v-after class="node node--strong">
       <span class="label">04 · Recommencer</span>
-      <p class="mt-4!">Token suivant, exemple suivant&nbsp;: 8&nbsp;810 exemples, vus 2&nbsp;fois.</p>
+      <p class="mt-4!">Token suivant, exemple suivant&nbsp;: 9&nbsp;348 exemples, vus 2&nbsp;fois.</p>
     </div>
   </div>
 </div>
@@ -614,7 +594,7 @@ save_adapter(model, "adapters/sft-0.6b")   # quelques dizaines de Mo
   <div v-after class="node">
     <span class="label">03</span>
     <h3 class="mt-3">Exporter</h3>
-    <p>En ONNX, <Term k="quantization">quantizé</Term> en 4 bits.</p>
+    <p>En ONNX, <Term k="quantization">quantifié</Term> en 4 bits.</p>
   </div>
   <div v-click class="arrow">→</div>
   <div v-after class="node node--strong">
@@ -624,7 +604,7 @@ save_adapter(model, "adapters/sft-0.6b")   # quelques dizaines de Mo
   </div>
 </div>
 
-<p v-click class="caption mt-12">2 h 15 d'entraînement, 7,1 Go de mémoire au pic, 1,43 Go à télécharger.</p>
+<p v-click class="caption mt-12">Pour le modèle final : 2 h 15 d'entraînement, 7,1 Go de mémoire au pic, une taille de 1,43 Go.</p>
 
 ---
 
@@ -634,7 +614,7 @@ save_adapter(model, "adapters/sft-0.6b")   # quelques dizaines de Mo
 
 ---
 
-#### Le SFT apprend la tâche
+#### On mesure le modèle entrainé
 
 <div class="schema stats mt-6">
   <div>
@@ -661,12 +641,12 @@ save_adapter(model, "adapters/sft-0.6b")   # quelques dizaines de Mo
 
 <div class="schema stats mt-6" style="gap: 200px">
   <div>
-    <p class="big accent">7/10</p>
-    <p class="mt-4">demandes simples</p>
+    <p class="big accent">6/10</p>
+    <p class="mt-4 text-center">demandes simples</p>
   </div>
   <div v-click>
     <p class="big">2/10</p>
-    <p class="mt-4">demandes plus complexes</p>
+    <p class="mt-4 text-center">demandes plus complexes</p>
   </div>
 </div>
 
@@ -676,11 +656,11 @@ save_adapter(model, "adapters/sft-0.6b")   # quelques dizaines de Mo
 
 #### Constat : hors du moule, ça se complique
 
-| SFT Qwen3-1.7B | Held-out | Benchmark Claude | Benchmark regex101                   | <Term k="frontier">Modèle frontière</Term> |
-| -------------- | -------- | ---------------- | ------------------------------------ | ------------------------------------------ |
-| Simples        | 88 %     | 73 %             | **<span class="accent">46 %</span>** | 100 partout %                              |
-| Intermédiaires | 77 %     | 38 %             | 14 %                                 | 100 partout %                              |
-| Difficiles     | 57 %     | 11 %             | 10 %                                 | 100 partout %                              |
+| SFT Qwen3-1.7B | Held-out | Benchmark Claude | Benchmark regex101 | <Term k="frontier">Modèle frontière</Term> |
+| -------------- | -------- | ---------------- | ------------------ | ------------------------------------------ |
+| Simples        | 88 %     | 73 %             | 46 %               | 100 partout %                              |
+| Intermédiaires | 77 %     | 38 %             | 14 %               | 100 partout %                              |
+| Difficiles     | 57 %     | 11 %             | 10 %               | 100 partout %                              |
 
 <p v-click class="caption mt-10">Le held-out mesure ce que le modèle a appris <b>du professeur</b>.<br>Sur de vraies demandes : moins d'une sur deux sur les besoins simples.</p>
 
@@ -701,7 +681,7 @@ save_adapter(model, "adapters/sft-0.6b")   # quelques dizaines de Mo
     { label: 'MiniCPM5-1B', before: 8.0, after: 21.3 },
     { label: 'Qwen3-0.6B', before: 2.8, after: 22.8 },
     { label: 'Qwen3.5-0.8B', before: 2.8, after: 26.0 },
-    { label: 'Qwen3-1.7B', before: null, after: 26.5, key: true },
+    { label: 'Qwen3-1.7B', before: 3.5, after: 26.5, key: true },
   ]"
 />
 </div>
@@ -717,7 +697,7 @@ save_adapter(model, "adapters/sft-0.6b")   # quelques dizaines de Mo
 - **Le SFT** : de 2,5 % à 77 %
 - **Les tests comme vérité** : pas besoin de juge
 - **Le coût** : 6 $ de données, un Mac, aucun GPU loué
-- **La taille** : 0,6 → 1,7 milliard rapporte plus que changer de méthode
+- **Le scaling** : passage 0,6 → 1,7 milliard = +5 points
 - **Le navigateur** : privé, gratuit à chaque requête
 
 </v-clicks>
@@ -758,9 +738,16 @@ _[regex-vibes.netlify.app](https://regex-vibes.netlify.app/)_
 
 ---
 
-### Un petit modèle bien entraîné<br>va déjà très loin.
+### Un petit modèle bien entraîné<br>peut donner de bons résultats.
 
 <p v-click class="caption">Pas besoin d'un <Term k="frontier">modèle frontière</Term> pour tout.</p>
+
+---
+
+#### Autres ressources
+
+- [Introducing Strands Decider 2B: a small, open source, decision model](https://strandsagents.com/blog/introducing-strands-decider/)
+- [Weight-space programming](https://en.wikipedia.org/wiki/Weight-space_programming)
 
 ---
 
